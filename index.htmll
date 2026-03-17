@@ -1,1 +1,1003 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XXX - Personal Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --bg-color: #ffffff;
+            --text-color: #1f2937;
+            --text-secondary: #6b7280;
+            --bg-secondary: #f3f4f6;
+            --border-color: #e5e7eb;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #111827;
+            --text-color: #f9fafb;
+            --text-secondary: #9ca3af;
+            --bg-secondary: #1f2937;
+            --border-color: #374151;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+
+        [data-theme="dark"] nav {
+            background: rgba(17, 24, 39, 0.95);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .lang-switch {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .lang-switch:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-color);
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            min-height: calc(100vh - 80px);
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-color), #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-content .subtitle {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .hero-content .description {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.875rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .hero-image {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .avatar-container {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid var(--primary-color);
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+
+        .avatar-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .avatar-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            color: white;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--primary-color);
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about {
+            background: var(--bg-secondary);
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .info-card {
+            background: var(--bg-color);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .info-card i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .info-card h3 {
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .info-card p {
+            color: var(--text-secondary);
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 12px;
+        }
+
+        .skill-category h3 {
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skill-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-bar {
+            height: 8px;
+            background: var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), #7c3aed);
+            border-radius: 4px;
+            transition: width 1s ease;
+            width: 0;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .skill-tag {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+        }
+
+        /* Education Timeline */
+        .education {
+            background: var(--bg-secondary);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: var(--primary-color);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 2rem;
+            width: 50%;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+            padding-right: 3rem;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            padding-left: 3rem;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            top: 2.5rem;
+            border: 4px solid var(--bg-color);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-dot {
+            right: -10px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -10px;
+        }
+
+        .timeline-content {
+            background: var(--bg-color);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .timeline-date {
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-desc {
+            color: var(--text-secondary);
+        }
+
+        /* Contact Section */
+        .contact-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        .contact-link:hover {
+            color: var(--primary-color);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .update-date {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .avatar-container {
+                width: 200px;
+                height: 200px;
+            }
+
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                left: 0 !important;
+                padding-left: 80px !important;
+                padding-right: 2rem !important;
+                text-align: left !important;
+            }
+
+            .timeline-dot {
+                left: 20px !important;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Portfolio</div>
+            <div class="nav-links">
+                <a href="#home" data-i18n="nav_home">首页</a>
+                <a href="#about" data-i18n="nav_about">关于</a>
+                <a href="#skills" data-i18n="nav_skills">技能</a>
+                <a href="#education" data-i18n="nav_education">教育</a>
+                <a href="#contact" data-i18n="nav_contact">联系</a>
+                <button class="lang-switch" onclick="toggleLanguage()">EN</button>
+            </div>
+            <div class="mobile-menu" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content fade-in">
+            <h1 data-i18n="name">成祯甜</h1>
+            <p class="subtitle" data-i18n="title">华东政法大学 · 金融学专业</p>
+            <p class="description" data-i18n="hero_desc">
+                热衷于金融与数字研究，致力于通过数据驱动的方法解决实际问题。
+                具备扎实的编程基础和数据分析能力，善于跨学科思考与合作。
+            </p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn btn-primary" data-i18n="btn_contact">联系我</a>
+                <a href="#about" class="btn btn-secondary" data-i18n="btn_more">了解更多</a>
+            </div>
+        </div>
+        <div class="hero-image fade-in">
+            <div class="avatar-container">
+                <!-- 替换为实际头像图片 -->
+                <div class="avatar-placeholder">👤</div>
+                <!-- <img src="avatar.jpg" alt="Profile"> -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <h2 class="section-title" data-i18n="about_title">关于我</h2>
+        <div class="about-content">
+            <p data-i18n="about_desc">
+                我是一名来自华东政法大学大学金融学专业的学生，对大数据和金融领域充满热情。
+                在学习和实践中，我培养了扎实的理论基础和动手能力，善于运用Python等工具进行数据分析与建模。
+                我期待在未来的学习和工作中，能够将所学知识应用于实际问题的解决，创造有价值的研究成果。
+            </p>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">🎓</div>
+                    <h3 data-i18n="info_edu">教育背景</h3>
+                    <p data-i18n="info_edu_desc">华东政法大学 金融学专业</p>
+                </div>
+                <div class="info-card">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">🔬</div>
+                    <h3 data-i18n="info_research">研究方向</h3>
+                    <p data-i18n="info_research_desc">大数据、金融</p>
+                </div>
+                <div class="info-card">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">💡</div>
+                    <h3 data-i18n="info_interest">兴趣爱好</h3>
+                    <p data-i18n="info_interest_desc">数据分析、编程、阅读、乒乓球</p>
+                </div>
+                <div class="info-card">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">🎯</div>
+                    <h3 data-i18n="info_goal">职业目标</h3>
+                    <p data-i18n="info_goal_desc">成为数据金融分析师</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <h2 class="section-title" data-i18n="skills_title">技能专长</h2>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <h3>💻 <span data-i18n="skill_programming">编程开发</span></h3>
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span>Python</span>
+                        <span>90%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-width="90"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span>R</span>
+                        <span>75%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-width="75"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span>SQL</span>
+                        <span>80%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-width="80"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h3>📊 <span data-i18n="skill_analysis">数据分析</span></h3>
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span data-i18n="skill_statistics">统计分析</span>
+                        <span>85%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-width="85"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span>Machine Learning</span>
+                        <span>70%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-width="70"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span>Data Visualization</span>
+                        <span>80%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-width="80"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h3>🛠️ <span data-i18n="skill_tools">工具软件</span></h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Git</span>
+                    <span class="skill-tag">Excel</span>
+                    <span class="skill-tag">Tableau</span>
+                    <span class="skill-tag">SPSS</span>
+                    <span class="skill-tag">Stata</span>
+                    <span class="skill-tag">LaTeX</span>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h3>🌐 <span data-i18n="skill_language">语言能力</span></h3>
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span data-i18n="lang_chinese">中文</span>
+                        <span data-i18n="lang_native">母语</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-width="100"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span data-i18n="lang_english">英语</span>
+                        <span>CET-6</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-width="80"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="education">
+        <h2 class="section-title" data-i18n="edu_title">教育经历</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">2022 - 2026</div>
+                    <h3 class="timeline-title" data-i18n="edu_bachelor">本科在读</h3>
+                    <p class="timeline-desc" data-i18n="edu_bachelor_desc">
+                        华东政法大学 金融学专业<br>
+                        GPA: 3.71/4.0 | 排名: 105/369
+                    </p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">2019 - 2022</div>
+                    <h3 class="timeline-title" data-i18n="edu_high">高中</h3>
+                    <p class="timeline-desc" data-i18n="edu_high_desc">
+                        毕节市民族中学<br>
+                        理科实验班
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="section-title" data-i18n="contact_title">联系我</h2>
+        <div class="contact-content">
+            <p data-i18n="contact_desc">
+                如果您对我的经历感兴趣，或有任何合作机会，欢迎通过以下方式联系我。
+            </p>
+            <div class="contact-links">
+                <a href="mailto:xxx@qq.com" class="contact-link">
+                    <span>📧</span>
+                    <span>2909299557@qq.com</span>
+                </a>
+                <a href="#" class="contact-link">
+                    <span>💻</span>
+                    <span>GitHub</span>
+                </a>
+                <a href="#" class="contact-link">
+                    <span>💼</span>
+                    <span>LinkedIn</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p class="update-date">
+                <span data-i18n="footer_update">最后更新</span>: 
+                <span id="update-date"></span>
+            </p>
+            <p style="margin-top: 0.5rem; color: var(--text-secondary); font-size: 0.875rem;">
+                © 2024 XXX. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // 多语言数据
+        const i18n = {
+            zh: {
+                nav_home: "首页",
+                nav_about: "关于",
+                nav_skills: "技能",
+                nav_education: "教育",
+                nav_contact: "联系",
+                name: "XXX",
+                title: "XXX大学 · XXX专业",
+                hero_desc: "热衷于XXX与XXX研究，致力于通过数据驱动的方法解决实际问题。具备扎实的编程基础和数据分析能力，善于跨学科思考与合作。",
+                btn_contact: "联系我",
+                btn_more: "了解更多",
+                about_title: "关于我",
+                about_desc: "我是一名来自XXX大学XXX专业的学生，对XXX和XXX领域充满热情。在学习和实践中，我培养了扎实的理论基础和动手能力，善于运用Python等工具进行数据分析与建模。我期待在未来的学习和工作中，能够将所学知识应用于实际问题的解决，创造有价值的研究成果。",
+                info_edu: "教育背景",
+                info_edu_desc: "XXX大学 XXX专业",
+                info_research: "研究方向",
+                info_research_desc: "XXX、XXX",
+                info_interest: "兴趣爱好",
+                info_interest_desc: "数据分析、编程、阅读",
+                info_goal: "职业目标",
+                info_goal_desc: "成为数据科学家/研究员",
+                skills_title: "技能专长",
+                skill_programming: "编程开发",
+                skill_analysis: "数据分析",
+                skill_statistics: "统计分析",
+                skill_tools: "工具软件",
+                skill_language: "语言能力",
+                lang_chinese: "中文",
+                lang_native: "母语",
+                lang_english: "英语",
+                edu_title: "教育经历",
+                edu_bachelor: "本科在读",
+                edu_bachelor_desc: "XXX大学 XXX专业<br>GPA: X.XX/4.0 | 排名: X/XX",
+                edu_high: "高中",
+                edu_high_desc: "XX中学<br>理科实验班",
+                contact_title: "联系我",
+                contact_desc: "如果您对我的经历感兴趣，或有任何合作机会，欢迎通过以下方式联系我。",
+                footer_update: "最后更新"
+            },
+            en: {
+                nav_home: "Home",
+                nav_about: "About",
+                nav_skills: "Skills",
+                nav_education: "Education",
+                nav_contact: "Contact",
+                name: "XXX",
+                title: "XXX University · XXX Major",
+                hero_desc: "Passionate about XXX and XXX research, dedicated to solving real-world problems through data-driven approaches. Solid programming foundation and data analysis skills, adept at interdisciplinary thinking and collaboration.",
+                btn_contact: "Contact Me",
+                btn_more: "Learn More",
+                about_title: "About Me",
+                about_desc: "I am a student majoring in XXX at XXX University, passionate about XXX and XXX. Through study and practice, I have developed solid theoretical foundations and practical skills, proficient in using tools like Python for data analysis and modeling. I look forward to applying my knowledge to solve practical problems and create valuable research outcomes.",
+                info_edu: "Education",
+                info_edu_desc: "XXX University, XXX Major",
+                info_research: "Research",
+                info_research_desc: "XXX, XXX",
+                info_interest: "Interests",
+                info_interest_desc: "Data Analysis, Programming, Reading",
+                info_goal: "Career Goal",
+                info_goal_desc: "Become a Data Scientist/Researcher",
+                skills_title: "Skills",
+                skill_programming: "Programming",
+                skill_analysis: "Data Analysis",
+                skill_statistics: "Statistics",
+                skill_tools: "Tools",
+                skill_language: "Languages",
+                lang_chinese: "Chinese",
+                lang_native: "Native",
+                lang_english: "English",
+                edu_title: "Education",
+                edu_bachelor: "Bachelor's Degree",
+                edu_bachelor_desc: "XXX University, XXX Major<br>GPA: X.XX/4.0 | Rank: X/XX",
+                edu_high: "High School",
+                edu_high_desc: "XX High School<br>Science Experimental Class",
+                contact_title: "Contact Me",
+                contact_desc: "If you are interested in my experience or have any collaboration opportunities, please feel free to contact me.",
+                footer_update: "Last Updated"
+            }
+        };
+
+        let currentLang = 'zh';
+
+        // 切换语言
+        function toggleLanguage() {
+            currentLang = currentLang === 'zh' ? 'en' : 'zh';
+            document.querySelector('.lang-switch').textContent = currentLang === 'zh' ? 'EN' : '中';
+            updateContent();
+        }
+
+        // 更新页面内容
+        function updateContent() {
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (i18n[currentLang][key]) {
+                    element.innerHTML = i18n[currentLang][key];
+                }
+            });
+        }
+
+        // 技能条动画
+        function animateSkillBars() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const progressBars = entry.target.querySelectorAll('.skill-progress');
+                        progressBars.forEach(bar => {
+                            const width = bar.getAttribute('data-width');
+                            setTimeout(() => {
+                                bar.style.width = width + '%';
+                            }, 200);
+                        });
+                    }
+                });
+            });
+
+            document.querySelectorAll('.skill-category').forEach(category => {
+                observer.observe(category);
+            });
+        }
+
+        // 时间线动画
+        function animateTimeline() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.timeline-item').forEach(item => {
+                observer.observe(item);
+            });
+        }
+
+        // 设置更新日期
+        function setUpdateDate() {
+            const date = new Date();
+            const dateStr = date.getFullYear() + '-' + 
+                          String(date.getMonth() + 1).padStart(2, '0') + '-' + 
+                          String(date.getDate()).padStart(2, '0');
+            document.getElementById('update-date').textContent = dateStr;
+        }
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 导航栏滚动效果
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+            } else {
+                nav.style.boxShadow = 'none';
+            }
+        });
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            animateSkillBars();
+            animateTimeline();
+            setUpdateDate();
+        });
+
+        // 手机菜单切换（简单实现）
+        function toggleMobileMenu() {
+            alert('移动端菜单功能可进一步开发');
+        }
+    </script>
+</body>
+</html>
