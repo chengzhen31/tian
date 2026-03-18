@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>成祯甜 · 个人主页</title>
+    <!-- 使用简单柔和的字体，干净整洁 -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        body {
+            background: #f4f7fb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+            line-height: 1.5;
+            color: #1e2b3c;
+        }
+        .resume-card {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            border-radius: 28px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15);
+            overflow: hidden;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(226, 232, 240, 0.4);
+        }
+        .card-header {
+            padding: 1.5rem 2.5rem;
+            background: white;
+            border-bottom: 1px solid #e9edf3;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .header-title h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #1e2b3c 0%, #2c3e50 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .lang-switch {
+            display: flex;
+            gap: 0.5rem;
+            background: #f0f4fa;
+            padding: 0.25rem;
+            border-radius: 40px;
+        }
+        .lang-btn {
+            border: none;
+            background: transparent;
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            color: #4b5e71;
+            transition: 0.2s;
+        }
+        .lang-btn.active {
+            background: white;
+            color: #1e2b3c;
+            box-shadow: 0 2px 8px rgba(0,20,40,0.08);
+            font-weight: 600;
+        }
+        .card-body {
+            padding: 2.5rem;
+        }
+        .section {
+            margin-bottom: 2rem;
+        }
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #4f6f8f;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #e2e9f2;
+            padding-bottom: 0.35rem;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem 1.5rem;
+        }
+        .info-item {
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+        }
+        .info-label {
+            font-weight: 500;
+            color: #5e6f88;
+            min-width: 70px;
+            font-size: 0.95rem;
+        }
+        .info-value {
+            color: #1e2b3c;
+            font-weight: 450;
+            word-break: break-word;
+        }
+        .profile-text {
+            background: #f8fafd;
+            padding: 1.2rem 1.5rem;
+            border-radius: 20px;
+            color: #2c3e50;
+            border-left: 4px solid #7b9cbb;
+            font-size: 1rem;
+        }
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+        .skill-tag {
+            background: #eaf1f9;
+            color: #1e3a5f;
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid #cbd6e4;
+        }
+        .edu-item {
+            margin-bottom: 1rem;
+        }
+        .edu-title {
+            font-weight: 600;
+            font-size: 1.05rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .edu-school {
+            color: #1e2b3c;
+        }
+        .edu-date {
+            color: #657f9b;
+            font-weight: 400;
+            font-size: 0.9rem;
+        }
+        .edu-desc {
+            color: #4b5e71;
+            font-size: 0.95rem;
+            margin-top: 0.15rem;
+        }
+        .footer-note {
+            margin-top: 2rem;
+            text-align: right;
+            font-size: 0.9rem;
+            color: #7c8fa3;
+            border-top: 1px dashed #d0ddea;
+            padding-top: 1rem;
+        }
+        /* 简单响应式 */
+        @media (max-width: 550px) {
+            .card-body { padding: 1.5rem; }
+            .card-header { padding: 1.2rem 1.5rem; }
+            .info-grid { grid-template-columns: 1fr; }
+        }
+        /* 双语言块切换 */
+        .lang-block {
+            display: none;
+        }
+        .lang-block.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="resume-card">
+        <!-- 头部：姓名 + 中英切换按钮 -->
+        <div class="card-header">
+            <div class="header-title">
+                <h1 id="name-title">成祯甜 · Zhengtian Cheng</h1>
+            </div>
+            <div class="lang-switch">
+                <button class="lang-btn active" id="btn-zh">中文</button>
+                <button class="lang-btn" id="btn-en">EN</button>
+            </div>
+        </div>
+
+        <!-- 主体内容：两个语言版本独立区块，通过JS切换显示 -->
+        <div class="card-body">
+            <!-- 中文版本 (默认显示) 联系方式已更新为QQ邮箱 -->
+            <div id="content-zh" class="resume-content lang-block active">
+                <!-- ================= 中文内容 ================= -->
+                <!-- 基本信息 -->
+                <div class="section">
+                    <div class="section-title">基本信息</div>
+                    <div class="info-grid">
+                        <div class="info-item"><span class="info-label">姓名</span><span class="info-value">成祯甜</span></div>
+                        <div class="info-item"><span class="info-label">学校/专业</span><span class="info-value">华东政法大学 · 金融学</span></div>
+                        <div class="info-item"><span class="info-label">研究兴趣</span><span class="info-value">数据分析 · 写作</span></div>
+                        <div class="info-item"><span class="info-label">联系方式</span><span class="info-value">2909299557@qq.com</span></div>
+                    </div>
+                </div>
+
+                <!-- 个人简介 (结合兴趣与背景) -->
+                <div class="section">
+                    <div class="section-title">个人简介</div>
+                    <div class="profile-text">
+                        金融学专业本科生，具备扎实的数学与经济学基础。热爱用数据讲出有洞察的故事，善于将统计分析应用于经济与商业问题。同时保持写作习惯，能够清晰准确地表达复杂观点。期待在数据分析或金融研究领域发挥优势。
+                    </div>
+                </div>
+
+                <!-- 技能 (根据课程和兴趣提炼) -->
+                <div class="section">
+                    <div class="section-title">技能</div>
+                    <div class="skill-list">
+                        <span class="skill-tag">Python / 数据分析</span>
+                        <span class="skill-tag">R / 统计建模</span>
+                        <span class="skill-tag">Excel / 金融建模</span>
+                        <span class="skill-tag">Stata / 计量分析</span>
+                        <span class="skill-tag">学术写作</span>
+                        <span class="skill-tag">内容创作</span>
+                        <span class="skill-tag">SQL (基础)</span>
+                        <span class="skill-tag">LaTeX</span>
+                    </div>
+                </div>
+
+                <!-- 课程经历 (完全按照你列出的课程) -->
+                <div class="section">
+                    <div class="section-title">课程经历</div>
+                    <div class="edu-item">
+                        <div class="edu-title">
+                            <span class="edu-school">📐 数学基础</span>
+                        </div>
+                        <div class="edu-desc">高等数学 · 线性代数 · 概率论与数理统计</div>
+                    </div>
+                    <div class="edu-item">
+                        <div class="edu-title">
+                            <span class="edu-school">📈 经济学基础</span>
+                        </div>
+                        <div class="edu-desc">微观经济学 · 宏观经济学 · 政治经济学</div>
+                    </div>
+                    <div class="edu-item">
+                        <div class="edu-title">
+                            <span class="edu-school">🛠️ 工具类</span>
+                        </div>
+                        <div class="edu-desc">大学英语 · 大数据与人工智能</div>
+                    </div>
+                </div>
+
+                <!-- 教育经历 (补充学校与学位) -->
+                <div class="section">
+                    <div class="section-title">教育经历</div>
+                    <div class="edu-item">
+                        <div class="edu-title">
+                            <span class="edu-school">华东政法大学 · 金融学 本科</span>
+                            <span class="edu-date">2024 – 2028 (预计)</span>
+                        </div>
+                        <div class="edu-desc">主修金融学数据分析相关课程 ·  GPA: 3.71/4.0  </div>
+                    </div>
+                </div>
+
+                <!-- 最后更新日期 (可修改为今天) -->
+                <div class="footer-note">最后更新：2026年3月18日</div>
+            </div>
+
+            <!-- 英文版本 (联系方式同步更新为QQ邮箱) -->
+            <div id="content-en" class="resume-content lang-block">
+                <!-- ================= English Version ================= -->
+                <!-- Basic Info -->
+                <div class="section">
+                    <div class="section-title">Basic Info</div>
+                    <div class="info-grid">
+                        <div class="info-item"><span class="info-label">Name</span><span class="info-value">Zhengtian Cheng</span></div>
+                        <div class="info-item"><span class="info-label">Univ/Major</span><span class="info-value">East China Univ. of Pol. Sci. and Law · Finance</span></div>
+                        <div class="info-item"><span class="info-label">Interests</span><span class="info-value">Data Analysis · Writing</span></div>
+                        <div class="info-item"><span class="info-label">Contact</span><span class="info-value">2909299557@qq.com</span></div>
+                    </div>
+                </div>
+
+                <!-- Profile -->
+                <div class="section">
+                    <div class="section-title">Profile</div>
+                    <div class="profile-text">
+                        Undergraduate student in Finance with solid foundations in mathematics and economics. Passionate about telling insightful stories with data, skilled in applying statistical analysis to economic and business problems. Also committed to writing, able to express complex ideas clearly and precisely. Eager to contribute in data analysis or financial research.
+                    </div>
+                </div>
+
+                <!-- Skills -->
+                <div class="section">
+                    <div class="section-title">Skills</div>
+                    <div class="skill-list">
+                        <span class="skill-tag">Python / Data Analysis</span>
+                        <span class="skill-tag">R / Statistical Modeling</span>
+                        <span class="skill-tag">Excel / Financial Modeling</span>
+                        <span class="skill-tag">Stata / Econometrics</span>
+                        <span class="skill-tag">Academic Writing</span>
+                        <span class="skill-tag">Content Creation</span>
+                        <span class="skill-tag">SQL (basic)</span>
+                        <span class="skill-tag">LaTeX</span>
+                    </div>
+                </div>
+
+                <!-- Coursework -->
+                <div class="section">
+                    <div class="section-title">Coursework</div>
+                    <div class="edu-item">
+                        <div class="edu-title">
+                            <span class="edu-school">📐 Mathematics</span>
+                        </div>
+                        <div class="edu-desc">Calculus · Linear Algebra · Probability & Mathematical Statistics</div>
+                    </div>
+                    <div class="edu-item">
+                        <div class="edu-title">
+                            <span class="edu-school">📈 Economics</span>
+                        </div>
+                        <div class="edu-desc">Microeconomics · Macroeconomics · Political Economy</div>
+                    </div>
+                    <div class="edu-item">
+                        <div class="edu-title">
+                            <span class="edu-school">🛠️ Tools & Skills</span>
+                        </div>
+                        <div class="edu-desc">College English · Big Data and AI</div>
+                    </div>
+                </div>
+
+                <!-- Education -->
+                <div class="section">
+                    <div class="section-title">Education</div>
+                    <div class="edu-item">
+                        <div class="edu-title">
+                            <span class="edu-school">East China University of Pol. Sci. and Law · B.A. Finance</span>
+                            <span class="edu-date">2023 – 2027 (expected)</span>
+                        </div>
+                        <div class="edu-desc">Major in Finance, with data analysis coursework · GPA: 3.7/4.0 (example)</div>
+                    </div>
+                </div>
+
+                <!-- Last Updated -->
+                <div class="footer-note">Last updated: March 18, 2026</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 简单的JavaScript实现中英文切换 (localStorage记住偏好) -->
+    <script>
+        (function() {
+            const zhBtn = document.getElementById('btn-zh');
+            const enBtn = document.getElementById('btn-en');
+            const contentZh = document.getElementById('content-zh');
+            const contentEn = document.getElementById('content-en');
+
+            function setLanguage(lang) {
+                if (lang === 'zh') {
+                    contentZh.classList.add('active');
+                    contentEn.classList.remove('active');
+                    zhBtn.classList.add('active');
+                    enBtn.classList.remove('active');
+                    localStorage.setItem('preferredLang', 'zh');
+                } else {
+                    contentEn.classList.add('active');
+                    contentZh.classList.remove('active');
+                    enBtn.classList.add('active');
+                    zhBtn.classList.remove('active');
+                    localStorage.setItem('preferredLang', 'en');
+                }
+            }
+
+            zhBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                setLanguage('zh');
+            });
+            enBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                setLanguage('en');
+            });
+
+            // 检查本地存储或浏览器语言设置，默认中文
+            const savedLang = localStorage.getItem('preferredLang');
+            if (savedLang) {
+                setLanguage(savedLang);
+            } else {
+                // 可选：根据浏览器语言决定，但保持中文优先
+                const browserLang = navigator.language || navigator.userLanguage;
+                if (browserLang.startsWith('en')) {
+                    setLanguage('en');
+                } else {
+                    setLanguage('zh');
+                }
+            }
+        })();
+    </script>
+
+    <!-- 备注：GPA为占位示例，可自行修改为真实成绩 -->
+</body>
+</html>
+      
